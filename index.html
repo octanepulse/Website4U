@@ -5,7 +5,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
-<title>Ding Dong✨❤️</title>
+<title>Dingg✨❤️</title>
 
 <style>
 
@@ -115,16 +115,20 @@ flex-direction:row;
 .letter{
 width:40%;
 background:white;
-padding:50px;
+padding:60px;
 border-radius:20px;
 box-shadow:0 10px 25px rgba(0,0,0,0.1);
 text-align:center;
 font-size:20px;
+line-height:2;
+letter-spacing:1px;
 }
 
 #typed{
 font-family:'Dancing Script', cursive;
 font-size:26px;
+line-height:2.2;
+letter-spacing:1px;
 }
 
 /* Polaroids */
@@ -211,11 +215,13 @@ z-index:999;
 
 .finalPhoto{
 position:absolute;
-width:100%;
-height:100%;
+width:65%;
+height:65%;
+transition:opacity 1.5s ease-in-out;
+border-radius:10px
+box-shadow:0 0 30px rgba(255,255,255,0.3);
 object-fit:cover;
 opacity:0;
-transition:1.5s;
 }
 
 </style>
@@ -261,7 +267,7 @@ transition:1.5s;
 </div>
 
 <div class="letter">
-<h2>My Love ❤️</h2>
+<h2>My Dear Wifeyy❤️</h2>
 <p><span id="typed"></span><span class="cursor"></span></p>
 
 <h3 style="color:#ff4d6d">I'm so lucky to have you as my Life Partner ❤️</h3>
@@ -403,56 +409,116 @@ typing()
 
 function startFinal(){
 
-let btn=document.getElementById("loveBtn")
-let rect=btn.getBoundingClientRect()
+// 💥 HEART BURST
+let btn = document.getElementById("loveBtn")
+let rect = btn.getBoundingClientRect()
 
-for(let i=0;i<30;i++){
-let h=document.createElement("div")
-h.className="heartParticle"
-h.innerHTML="❤️"
-h.style.left=rect.left+"px"
-h.style.top=rect.top+"px"
-h.style.setProperty('--x',(Math.random()*200-100)+"px")
-h.style.setProperty('--y',(Math.random()*200-100)+"px")
-document.body.appendChild(h)
-setTimeout(()=>h.remove(),1000)
+let colors = ["❤️","🤍","💗","💖"]
+
+for(let i=0;i<35;i++){
+
+let heart = document.createElement("div")
+heart.className = "heartParticle"
+
+heart.innerHTML = colors[Math.floor(Math.random()*colors.length)]
+
+heart.style.left = rect.left + rect.width/2 + "px"
+heart.style.top = rect.top + rect.height/2 + "px"
+
+let x = (Math.random() - 0.5) * 250 + "px"
+let y = (Math.random() - 0.5) * 250 + "px"
+
+heart.style.setProperty('--x', x)
+heart.style.setProperty('--y', y)
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),1000)
 }
 
-document.querySelectorAll(".polaroids").forEach(p=>{
+// 📸 Fade out polaroids
+let photos = document.querySelectorAll(".polaroids")
+photos.forEach(p=>{
+p.style.transition="1s"
 p.style.opacity="0"
 })
 
-let bg=document.getElementById("bgmusic")
-let fade=setInterval(()=>{
-if(bg.volume>0.05) bg.volume-=0.05
-else{bg.pause();clearInterval(fade)}
+// 🎵 Fade out first music
+let bg = document.getElementById("bgmusic")
+if(bg){
+let fade = setInterval(()=>{
+if(bg.volume > 0.05){
+bg.volume -= 0.05
+}else{
+bg.pause()
+clearInterval(fade)
+}
+},200)
+}
+
+// 🎵 Fade in second music
+let finalMusic = document.getElementById("finalMusic")
+finalMusic.volume = 0
+finalMusic.play()
+
+let vol = 0
+let fadeIn = setInterval(()=>{
+if(vol < 0.5){
+vol += 0.02
+finalMusic.volume = vol
+}else{
+clearInterval(fadeIn)
+}
 },200)
 
-let fm=document.getElementById("finalMusic")
-fm.volume=0
-fm.play()
-let v=0
-let fi=setInterval(()=>{
-if(v<0.5){v+=0.02;fm.volume=v}else clearInterval(fi)
-},200)
+// 🎬 SHOW FINAL SCENE
+let finalScene = document.getElementById("finalScene")
+finalScene.style.display = "flex"
+
+let finalPhotos = document.querySelectorAll(".finalPhoto")
+
+let index = 0
+
+function showPhotos(){
+
+finalPhotos.forEach(p => p.style.opacity = "0")
+
+finalPhotos[index].style.opacity = "1"
+
+index++
+
+if(index < finalPhotos.length){
+setTimeout(showPhotos, 6000)
+}
+
+}
+
+showPhotos()
+
+// 💖 FINAL MESSAGE AFTER ALL PHOTOS
+setTimeout(()=>{
+
+let finalText = document.createElement("div")
+
+finalText.innerHTML = "No matter where life takes us... I will always find my way back to you Kavya😘❤️"
+
+finalText.style.position = "absolute"
+finalText.style.bottom = "40px"
+finalText.style.width = "100%"
+finalText.style.textAlign = "center"
+finalText.style.fontSize = "28px"
+finalText.style.color = "white"
+finalText.style.opacity = "0"
+finalText.style.transition = "3s"
+
+document.getElementById("finalScene").appendChild(finalText)
 
 setTimeout(()=>{
-document.getElementById("finalScene").style.display="block"
-startSlideshow()
-},1200)
+finalText.style.opacity = "1"
+},500)
 
-}
+}, 5500 * 12)
 
-function startSlideshow(){
-let slides=document.querySelectorAll(".finalPhoto")
-let i=0
-function show(){
-slides.forEach(s=>s.style.opacity=0)
-slides[i].style.opacity=1
-i++
-if(i<slides.length) setTimeout(show,3000)
-}
-show()
 }
 
 </script>
