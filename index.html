@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+<title>Ding Dong✨❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI';
+background:linear-gradient(135deg,#ffd6e7,#fff6f9);
+overflow-x:hidden;
+}
+
+/* Floating hearts */
+
+.heart{
+position:fixed;
+bottom:-25px;
+font-size:25px;
+animation:float 8s linear infinite;
+opacity:0.7;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+/* Start Screen */
+
+.start{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.start h1{
+font-size:3em;
+color:#ff4d6d;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+background:#ff4d6d;
+color:white;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* Envelope */
+
+.envelope-container{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.envelope{
+width:320px;
+height:190px;
+background:#ff8fab;
+position:relative;
+cursor:pointer;
+animation:floatEnvelope 3s ease-in-out infinite;
+}
+
+.flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ff6b81;
+transform-origin:top;
+transition:0.6s;
+}
+
+.envelope.open .flap{
+transform:rotateX(180deg);
+}
+
+@keyframes floatEnvelope{
+0%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+100%{transform:translateY(0);}
+}
+
+/* Letter */
+
+.letter-section{
+display:none;
+padding:40px;
+justify-content:center;
+align-items:flex-start;
+flex-direction:row;
+}
+
+.letter{
+width:40%;
+background:white;
+padding:50px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+text-align:center;
+font-size:20px;
+}
+
+#typed{
+font-family:'Dancing Script', cursive;
+font-size:26px;
+}
+
+/* Polaroids */
+
+.polaroids{
+width:20%;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.polaroids img{
+width:170px;
+background:white;
+padding:12px;
+margin:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+border-radius:6px;
+}
+
+.polaroids img:nth-child(odd){
+transform:rotate(-6deg);
+}
+
+.polaroids img:nth-child(even){
+transform:rotate(6deg);
+}
+
+/* Heart button */
+
+#loveBtn{
+font-size:40px;
+background:none;
+border:none;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+/* Heart burst */
+
+.heartParticle{
+position:fixed;
+font-size:20px;
+pointer-events:none;
+animation:burst 1s ease-out forwards;
+}
+
+@keyframes burst{
+0%{opacity:1;}
+100%{opacity:0; transform:translate(var(--x), var(--y));}
+}
+
+/* Cursor */
+
+.cursor{
+display:inline-block;
+width:2px;
+background:#ff4d6d;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0;}
+}
+
+/* FINAL CINEMATIC */
+
+#finalScene{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+z-index:999;
+}
+
+.finalPhoto{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition:1.5s;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgmusic">
+<source src="love-bgm.mp3">
+</audio>
+
+<audio id="finalMusic">
+<source src="final-music.mp3">
+</audio>
+
+<!-- Start -->
+
+<div class="start" id="start">
+<h1>Happy Birthday My Love ❤️</h1>
+<button onclick="startGift()">Click here for a surprise gift</button>
+</div>
+
+<!-- Envelope -->
+
+<div class="envelope-container" id="envelopeContainer">
+<div class="envelope" onclick="openLetter()" id="envelope">
+<div class="flap"></div>
+</div>
+<p>Click the envelope 💌</p>
+</div>
+
+<!-- Letter -->
+
+<div class="letter-section" id="letterSection">
+
+<div class="polaroids">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+</div>
+
+<div class="letter">
+<h2>My Love ❤️</h2>
+<p><span id="typed"></span><span class="cursor"></span></p>
+
+<h3 style="color:#ff4d6d">I'm so lucky to have you as my Life Partner ❤️</h3>
+
+<button id="loveBtn" onclick="startFinal()">❤️</button>
+<p style="color:#ff4d6d;">Click here</p>
+</div>
+
+<div class="polaroids">
+<img src="photo7.jpg">
+<img src="photo8.jpg">
+<img src="photo9.jpg">
+<img src="photo10.jpg">
+<img src="photo11.jpg">
+<img src="photo12.jpg">
+</div>
+
+</div>
+
+<!-- FINAL SCENE -->
+
+<div id="finalScene">
+<img src="final1.jpg" class="finalPhoto">
+<img src="final2.jpg" class="finalPhoto">
+<img src="final3.jpg" class="finalPhoto">
+<img src="final4.jpg" class="finalPhoto">
+<img src="final5.jpg" class="finalPhoto">
+<img src="final6.jpg" class="finalPhoto">
+<img src="final7.jpg" class="finalPhoto">
+<img src="final8.jpg" class="finalPhoto">
+<img src="final9.jpg" class="finalPhoto">
+<img src="final10.jpg" class="finalPhoto">
+<img src="final11.jpg" class="finalPhoto">
+<img src="final12.jpg" class="finalPhoto">
+</div>
+
+<script>
+
+/* Floating hearts */
+setInterval(()=>{
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML="❤️"
+h.style.left=Math.random()*100+"vw"
+document.body.appendChild(h)
+setTimeout(()=>h.remove(),8000)
+},500)
+
+function startGift(){
+document.getElementById("start").style.display="none"
+document.getElementById("envelopeContainer").style.display="flex"
+}
+
+function openLetter(){
+document.getElementById("envelope").classList.add("open")
+let music=document.getElementById("bgmusic")
+music.volume=0.4
+music.play()
+
+setTimeout(()=>{
+document.getElementById("envelopeContainer").style.display="none"
+document.getElementById("letterSection").style.display="flex"
+typeLetter()
+},800)
+}
+
+let text=`Today is your special day, but honestly 
+every day with you feels special.
+
+You are my happiness, my peace
+and the most beautiful part of my life.
+
+Every memory with you is a treasure
+and I can't wait to create thousands more.
+
+Today is not just an ordinary day, it's the 
+day where the person who changed my life forever 
+came into this world and sometimes I sit back 
+and think about how lucky I am that out of all
+the people in the world, I get to call you Mine
+
+And I've been truely blessed to have you as
+my partner, because you're so supportive
+and understanding and lovely at the same time. 
+Looking at you, I sometimes smile and ask myself 
+how did I keep searching for love in the world 
+when the most precious one was already in my hands
+and when both of our souls met together 
+that moment something just magical✨ happened in 
+me an unexplainable happiness and you know you are
+the entire source of my happiness, you are my world
+Kavya and it's only with you where i'm fully safe and
+loved, you are my safe spot and there's nothing I need
+to worry about and life is just peaceful around you babe❤️,
+and also I'm so thankful for your patience and everything 
+because I know how messy I'm but you still patiently hold up
+and fix stuffs for us, seriously girl you're something 
+extraodinary like I just love the feeling when everytime I think 
+about you being my life parnter, You alone prove that all of my 
+prayers have been answered because I don't see you just as a girl in 
+my life I see you like a miracle that happened to me all of a sudden 
+like randomly one day god looks at me and says "Hey have her, she is
+the one you've been asking for" like you are such a miracle babe
+and I guess I haven't said this much but loving you has been one of 
+the most beautiful thing that has ever happened to me and you've 
+become such an important part of my life that even simple moments 
+but around you makes me feel very special, but the moment you entered
+my life all i could say is I'm the luckiest of all because you've seen 
+me at my best and at my worst, and still chose to say, to care and to love
+me. That means more than i could ever put it into words and being with you 
+has thought me so much about love, like understanding, being patient and
+stay strong even when things aren't perfect, and I just love the way you 
+stay in my life effortlessly so deep that you're always in my mind like you've 
+become a part of my thoughts, plans and my dreams for the future, and 
+even if i don't say it out perfectly please know my feelings for you are
+genuine, strong and grows with time. No matter where life takes us, I want
+you to remember you matter to me more than you probably realize and I will
+choose you every single day with the same amount of love that I've always
+had for you😘,and I'm excited to share a lifetime with you Kavya❤️.
+I Lovee Youu Mutheyy😘😘❤️💕🫂
+
+Once again Happy Birthday to the person
+who makes my world brighter and happier😘❤️💕
+❤️
+`
+  
+let i=0
+
+function typeLetter(){
+function typing(){
+if(i<text.length){
+document.getElementById("typed").innerHTML+=text.charAt(i)
+i++
+setTimeout(typing,40)
+}
+}
+typing()
+}
+
+function startFinal(){
+
+let btn=document.getElementById("loveBtn")
+let rect=btn.getBoundingClientRect()
+
+for(let i=0;i<30;i++){
+let h=document.createElement("div")
+h.className="heartParticle"
+h.innerHTML="❤️"
+h.style.left=rect.left+"px"
+h.style.top=rect.top+"px"
+h.style.setProperty('--x',(Math.random()*200-100)+"px")
+h.style.setProperty('--y',(Math.random()*200-100)+"px")
+document.body.appendChild(h)
+setTimeout(()=>h.remove(),1000)
+}
+
+document.querySelectorAll(".polaroids").forEach(p=>{
+p.style.opacity="0"
+})
+
+let bg=document.getElementById("bgmusic")
+let fade=setInterval(()=>{
+if(bg.volume>0.05) bg.volume-=0.05
+else{bg.pause();clearInterval(fade)}
+},200)
+
+let fm=document.getElementById("finalMusic")
+fm.volume=0
+fm.play()
+let v=0
+let fi=setInterval(()=>{
+if(v<0.5){v+=0.02;fm.volume=v}else clearInterval(fi)
+},200)
+
+setTimeout(()=>{
+document.getElementById("finalScene").style.display="block"
+startSlideshow()
+},1200)
+
+}
+
+function startSlideshow(){
+let slides=document.querySelectorAll(".finalPhoto")
+let i=0
+function show(){
+slides.forEach(s=>s.style.opacity=0)
+slides[i].style.opacity=1
+i++
+if(i<slides.length) setTimeout(show,3000)
+}
+show()
+}
+
+</script>
+
+</body>
+</html>
