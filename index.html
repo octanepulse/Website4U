@@ -215,13 +215,23 @@ z-index:999;
 
 .finalPhoto{
 position:absolute;
-width:65%;
-height:65%;
-transition:opacity 1.5s ease-in-out;
-border-radius:10px
-box-shadow:0 0 30px rgba(255,255,255,0.3);
-object-fit:cover;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);  /* 💥 THIS CENTERS EVERYTHING */
+
+max-width:70%;
+max-height:80%;   /* better for portrait images */
+
+width:auto;
+height:auto;
+
+object-fit:contain;  /* keeps proportions PERFECT */
+
 opacity:0;
+transition:opacity 1.5s ease-in-out;
+
+border-radius:10px;
+box-shadow:0 0 30px rgba(255,255,255,0.3);
 }
 
 </style>
@@ -360,7 +370,7 @@ that moment something just magical✨ happened in
 me an unexplainable happiness and you know you are
 the entire source of my happiness, you are my world
 Kavya and it's only with you where i'm fully safe and
-loved, you are my safe spot and there's nothing I need
+loved, you are my peace and there's nothing I need
 to worry about and life is just peaceful around you babe❤️,
 and also I'm so thankful for your patience and everything 
 because I know how messy I'm but you still patiently hold up
@@ -379,7 +389,7 @@ my life all i could say is I'm the luckiest of all because you've seen
 me at my best and at my worst, and still chose to say, to care and to love
 me. That means more than i could ever put it into words and being with you 
 has thought me so much about love, like understanding, being patient and
-stay strong even when things aren't perfect, and I just love the way you 
+staying strong even when things aren't perfect, and I just love the way you 
 stay in my life effortlessly so deep that you're always in my mind like you've 
 become a part of my thoughts, plans and my dreams for the future, and 
 even if i don't say it out perfectly please know my feelings for you are
@@ -500,7 +510,7 @@ setTimeout(()=>{
 
 let finalText = document.createElement("div")
 
-finalText.innerHTML = "No matter where life takes us... I will always find my way back to you Kavya😘❤️"
+finalText.innerHTML = "No matter where life takes us... I will always find my way back to you Kavya😘❤️🥹"
 
 finalText.style.position = "absolute"
 finalText.style.bottom = "40px"
